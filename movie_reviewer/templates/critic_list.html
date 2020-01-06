@@ -1,0 +1,8 @@
+<h1>Critics</h1>
+<ul>
+  {% for critic in object_list %}
+  <li>{{ critic.displayname }}</li>
+  {% empty %}
+  <li>No critics yet.</li>
+  {% endfor %}
+</ul>

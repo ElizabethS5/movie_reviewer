@@ -6,8 +6,46 @@
 # responses
 
 
-# from django.shortcuts import render, HttpResponseRedirect, reverse
-# from django.contrib.auth.models import User
-# from django.contrib.auth import login
+from django.shortcuts import HttpResponseRedirect, reverse  # render
+from django.contrib.auth import login
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from movie_reviewer.critics.forms import NewCriticForm
+from movie_reviewer.critics.models import Critic
+
+
+class CreateCritic(CreateView):
+    template_name = 'generic_form.html'
+    form_class = NewCriticForm
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        critic = Critic.objects.create(
+            username=data['username'],
+            email=data['email'],
+            password=data['password'],
+            displayname=data['displayname'],
+            professional=data['professional']
+        )
+        login(self.request, critic)
+        return HttpResponseRedirect(reverse('homepage'))
+
+
+class CriticView(DetailView):
+    model = Critic
+    template_name = 'critic_detail.html'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+
+
+class CriticListView(ListView):
+    model = Critic
+    paginate_by = 100
+    template_name = 'critic_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        return super().get_context_data(**kwargs)
