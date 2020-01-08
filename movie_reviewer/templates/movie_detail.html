@@ -1,0 +1,14 @@
+<h1><a href="/">Movie Reviewer</a></h1>
+<button><a href="/search/">Search for a Movie</a></button>
+
+<h2>{{movie.title}}</h2>
+<img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="">
+<p>{{movie.overview}}</p>
+<p>{{movie.cast}}</p>
+
+<ul>  
+    {% for credit in credits%}
+        <li>{{credit.character}} - {{credit.name}}</li>
+        <img src="https://image.tmdb.org/t/p/w92/{{credit.profile_path}}" alt="">
+    {% endfor%}
+</ul>
