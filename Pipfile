@@ -10,7 +10,6 @@ autopep8 = "*"
 [packages]
 django = "*"
 python-dotenv = "*"
-tmdbsimple = "*"
 
 [requires]
 python_version = "3.8"
