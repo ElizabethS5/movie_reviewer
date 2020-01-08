@@ -12,22 +12,38 @@
 import re
 from django.shortcuts import render
 from django.views import View
+from movie_reviewer.movies.forms import SearchForm
 # from movie_reviewer.movies.models import Movie
 import tmdbsimple as tmdb 
+
 
 tmdb.API_KEY = '20198fe77843ae9de92a02d9ce1e74c0'
 
 class RecentMoviesView(View):
-    template_name = 'movie_feed.html'
+    template_name = 'index.html'
 
     def get(self, request):
-        discover = tmdb.Discover()
-        res = discover.movie(page=1, year='2019', query='frozen')
+        res = tmdb.Movies().popular(page=1)
         movies= res['results'][:10]
         return render(request, self.template_name, {'data': movies})
 
 class SearchMovieView(View):
-    template_name = 'generic_form.html'
+    template_name = 'search_form.html'
+
+    def get(self, request, *args, **kwargs):
+        form = SearchForm()
+        return render(request, self.template_name, {'form': form})
+
+class SearchResults(View):
+    template_name = 'search.html'
+    
+    def get(self, request, *args, **kwargs):
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            data = form.cleaned_data
+            search_dict = tmdb.Search().movie(query=data['search_input'])
+            search_results = search_dict['results']
+        return render(request, self.template_name, {'search': search_results})
 
 class MovieView(View):
     template_name = 'movie_detail.html'
@@ -38,11 +54,3 @@ class MovieView(View):
         get_credits = get_movie.credits()
         movie_credits = get_credits['cast'][:5]
         return render(request, self.template_name, {'movie': movie, 'credits': movie_credits})
-
-
-
-# omdb
-# API_KEY = 'd13b1b04'
-# url=f'http://www.omdbapi.com/?apikey={API_KEY}'
-
-# omdb.set_default('apikey', API_KEY)
