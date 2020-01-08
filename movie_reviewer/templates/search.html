@@ -1,0 +1,13 @@
+<h1><a href="/">Movie Reviewer</a></h1>
+
+<button><a href="/search/">Search Again</a></button>
+
+<h2>Search Results</h2>
+<ul>
+    {% for result in search %}
+    <li>
+        <h3><a href="/movie/{{ result.id}}">{{ result.title }}</a></h3>
+        <img src="https://image.tmdb.org/t/p/w92/{{result.poster_path}}" alt="">
+    </li>
+    {% endfor %}
+</ul>
