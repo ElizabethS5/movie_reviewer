@@ -5,15 +5,44 @@
 # All network requests have sufficient exception handling for 4xx and 5xx
 # responses
 
-from django.shortcuts import render  # , HttpResponseRedirect, reverse
+  # , HttpResponseRedirect, reverse
 # from django.contrib.auth import login
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
+import re
+from django.shortcuts import render
 from django.views import View
+# from movie_reviewer.movies.models import Movie
+import tmdbsimple as tmdb 
 
+tmdb.API_KEY = '20198fe77843ae9de92a02d9ce1e74c0'
 
-class IndexView(View):
-    template_name = 'index.html'
+class RecentMoviesView(View):
+    template_name = 'movie_feed.html'
 
     def get(self, request):
-        return render(request, self.template_name, {})
+        discover = tmdb.Discover()
+        res = discover.movie(page=1, year='2019', query='frozen')
+        movies= res['results'][:10]
+        return render(request, self.template_name, {'data': movies})
+
+class SearchMovieView(View):
+    template_name = 'generic_form.html'
+
+class MovieView(View):
+    template_name = 'movie_detail.html'
+
+    def get(self, request, id):
+        get_movie = tmdb.Movies(id)
+        movie = get_movie.info()
+        get_credits = get_movie.credits()
+        movie_credits = get_credits['cast'][:5]
+        return render(request, self.template_name, {'movie': movie, 'credits': movie_credits})
+
+
+
+# omdb
+# API_KEY = 'd13b1b04'
+# url=f'http://www.omdbapi.com/?apikey={API_KEY}'
+
+# omdb.set_default('apikey', API_KEY)

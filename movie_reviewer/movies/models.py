@@ -7,4 +7,13 @@ from django.db import models
 
 
 class Movie(models.Model):
-    pass
+    title = models.CharField(max_length=200)
+    imdb_id = models.CharField(max_length=200)
+    overview = models.CharField(max_length=2000)
+    poster_path = models.CharField(max_length=200)
+    release_date = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.title} imdbID: {self.imdb_id} (id: {self.id})"
+    
+
