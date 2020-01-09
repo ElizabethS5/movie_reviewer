@@ -5,11 +5,8 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = [  
-            'title', 
+            'headline', 
             'text', 
             'recommend']
 
-class EditForm(forms.ModelForm):
-    class Meta:
-        model = EditModel
 

@@ -27,7 +27,7 @@ def reviewaddview(request, movieID):
             data = form.cleaned_data
             Review.objects.create(
                 critic=request.user,
-                title=data['title'],
+                headline=data['headline'],
                 text=data['text'],
                 recommend=data['recommend']
                 movie=Movie.objects.get(pk=movieId)
