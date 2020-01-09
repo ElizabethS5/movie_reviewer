@@ -9,7 +9,7 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-
+from movie_reviewer.reviews.forms import ReviewForm
 
 def review_view(request, id):
     review_html = 'reviews.html'
@@ -17,12 +17,13 @@ def review_view(request, id):
     return render(request, review_html, {'data': review})
 
 
-@login_required
-def reviewaddview(request, movieID):
+# @login_required
+def reviewaddview(request):
     html = 'generic_form.html'
+    form=ReviewForm()
 
     if request.method == 'POST':
-        form = reviewItemAddForm(request.POST)
+        form = ReviewForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             Review.objects.create(
@@ -30,8 +31,11 @@ def reviewaddview(request, movieID):
                 headline=data['headline'],
                 text=data['text'],
                 recommend=data['recommend']
-                movie=Movie.objects.get(pk=movieId)
+                # movie=Movie.objects.get(pk=movieId)
+            )
             return HttpResponseRedirect(reverse('homepage'))
+    return render(request,html,{'form': form})
+
 
 def deletereview(request):
     query = Movie.objects.get(pk=id)
