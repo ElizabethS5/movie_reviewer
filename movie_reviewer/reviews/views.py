@@ -13,8 +13,28 @@ from movie_reviewer.reviews.forms import ReviewForm
 
 def review_view(request, id):
     review_html = 'reviews.html'
-    review = Review.objects.filter(id=id)
-    return render(request, review_html, {'data': review})
+
+    current_movie = Movie.objects.get(id=id)
+    movie_reviews = Review.objects.filter(movie=current_movie)
+
+    professional_critics = Critics.objects.filter(professional=True)
+    user_critics = Critics.objects.filter(professional=False)
+
+    professional_reviews = Review.objects.none()
+    user_reviews = Review.objects.none()
+
+    for critic in professional_critics:
+        professional_reviews = professional_reviews | movie_reviews.filter(critic=critic).first()
+
+    for critic in user_critics:
+        user_reviews = user_reviews | movie_reviews.filter(critic=critic).first()
+    
+
+
+    # review = Review.objects.all()
+    # critic_reviews = Review.objects.filter()
+    # user_reviews = Review.objects.filter()
+    return render(request, review_html, {'professional_reviews': professional_reviews, 'user_reviews':user_reviews})
 
 
 # @login_required
