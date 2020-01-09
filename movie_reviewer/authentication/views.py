@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 def login_view(request):
   
-    html = 'generic_form.htm'
+    html = 'generic_form.html'
     page = 'login'
     if request.method == 'POST':
         form = LoginForm(request.POST)
