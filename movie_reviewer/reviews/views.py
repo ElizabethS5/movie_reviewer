@@ -10,11 +10,6 @@ from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-def index(request):
-    html = 'index.html'
-    reviews = Review.objects.all()
-    return render(request, html, {'data': reviews})
-
 
 def review_view(request, id):
     review_html = 'reviews.html'
@@ -23,21 +18,33 @@ def review_view(request, id):
 
 
 @login_required
-def reviewaddview(request):
+def reviewaddview(request, movieID):
     html = 'generic_form.html'
 
     if request.method == 'POST':
         form = reviewItemAddForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            ReviewItem.objects.create(
+            Review.objects.create(
                 critic=request.user,
                 title=data['title'],
                 text=data['text'],
                 recommend=data['recommend']
-            )
+                movie=Movie.objects.get(pk=movieId)
             return HttpResponseRedirect(reverse('homepage'))
-   
+
+def deletereview(request):
+    query = Movie.objects.get(pk=id)
+    query.delete()
+    return HttpResponse("Deleted!")
+
+def edit_review_view(request, id): 
+    instance = get_object_or_404(edit_reviewModel, id=id)
+    form = edit_reviewForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('next_view')
+    return render(request, 'edit_review_template.html', {'form': form}) 
 
 
 

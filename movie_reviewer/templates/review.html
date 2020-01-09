@@ -1,0 +1,14 @@
+{% load static %}
+
+<head>
+    <link rel='stylesheet' type='text/css' href='{% static "css/main.css" %}'>
+</head>
+
+<a href='/'>Home Page</a>
+<a href='/logout/'>Logout</a>
+
+{% for item in review %}
+    <h1><a href = '/review/{{item.id}}/'>{{item.review}}</a></h1>
+    <h3>{{item.movietitle}}</h3>
+    <h6>{{item.post_date}}</h6>
+{% endfor %}

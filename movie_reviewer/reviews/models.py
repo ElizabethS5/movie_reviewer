@@ -18,7 +18,7 @@ class Review(models.Model):
     recommend = models.BooleanField(default=True)
 
 
-def _str_(self):
-        return self.content
+    def _str_(self):
+        return self.headline
 
 

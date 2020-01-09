@@ -8,3 +8,8 @@ class ReviewForm(forms.ModelForm):
             'title', 
             'text', 
             'recommend']
+
+class EditForm(forms.ModelForm):
+    class Meta:
+        model = EditModel
+
