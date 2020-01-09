@@ -1,15 +1,10 @@
-# from django.urls import path
-
-from django.contrib import admin
 from django.urls import path
-from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+from movie_reviewer.authentication.views import *
 
 urlpatterns = [
 
     # Functions
-    path('login/', views.login_user, name="login"),
-    path('sign_out/', views.sign_out, name="sign_out"),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('login/', login, name="login"),
+    path('log_out/', log_out, name="log_out"),
+   
+]
