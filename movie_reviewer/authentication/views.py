@@ -8,6 +8,8 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from movie_reviewer.authentication.forms import LoginForm
+from django.contrib.auth.decorators import login_required
 
 
 def login_view(request):
@@ -25,13 +27,14 @@ def login_view(request):
         if user:
             login(request, user)
             return HttpResponseRedirect(
-                request.GET.get('next', reverse('home'))
+                request.GET.get('next', reverse('homepage'))
             )
   
     form = LoginForm()
     return render(request, html, {'form': form, 'page': page})
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))

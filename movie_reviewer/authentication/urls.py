@@ -4,7 +4,7 @@ from movie_reviewer.authentication.views import *
 urlpatterns = [
 
     # Functions
-    path('login/', login, name="login"),
-    path('log_out/', log_out, name="log_out"),
-   
+    path('login/', login_view, name="login"),
+    path('log_out/', logout_view, name="log_out"),
+  
 ]
