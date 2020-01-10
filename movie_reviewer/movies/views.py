@@ -13,7 +13,7 @@ import re
 from django.shortcuts import render
 from django.views import View
 from movie_reviewer.movies.forms import SearchForm
-# from movie_reviewer.movies.models import Movie
+from movie_reviewer.movies.models import Movie
 import tmdbsimple as tmdb 
 
 
@@ -50,7 +50,22 @@ class MovieView(View):
 
     def get(self, request, id):
         get_movie = tmdb.Movies(id)
-        movie = get_movie.info()
+        movie_info = get_movie.info()
+        db_movie = Movie.objects.filter(imdb_id=movie_info['imdb_id']).first()
+        if not db_movie:
+            db_movie = Movie.objects.create(
+                    title= movie_info['title'],
+                    imdb_id= movie_info['imdb_id'],
+                    overview= movie_info['overview'],
+                    poster_path= movie_info['poster_path'],
+                    release_date = movie_info['release_date']
+                )
         get_credits = get_movie.credits()
         movie_credits = get_credits['cast'][:5]
-        return render(request, self.template_name, {'movie': movie, 'credits': movie_credits})
+        # reviews = Review.objects.filter(movie=db_movie)
+        # pro reviews = boolean true
+        return render(request, self.template_name, {'movie': movie_info, 'credits': movie_credits})
+
+        # partial scheme
+        # get reviews for movie
+        # iterate to separate/individual variable lists
