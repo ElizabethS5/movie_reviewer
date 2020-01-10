@@ -10,11 +10,15 @@ from django.contrib.auth import login
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from movie_reviewer.reviews.forms import ReviewForm
+from movie_reviewer.reviews.models import Review
+from movie_reviewer.critics.models import Critic
+from movie_reviewer.movies.models import Movie
 
-def review_view(request, id):
+
+def reviews_of_movie_view(request, movieId):
     review_html = 'reviews.html'
 
-    current_movie = Movie.objects.get(id=id)
+    current_movie = Movie.objects.get(id=movieId)
     movie_reviews = Review.objects.filter(movie=current_movie)
 
     professional_critics = Critics.objects.filter(professional=True)
@@ -37,38 +41,47 @@ def review_view(request, id):
     return render(request, review_html, {'professional_reviews': professional_reviews, 'user_reviews':user_reviews})
 
 
-# @login_required
-def reviewaddview(request):
+@login_required
+def review_add_view(request, movieId):
     html = 'generic_form.html'
-    form=ReviewForm()
+    movie = Movie.objects.get(id=movieId)
+    critic = Critic.objects.get(pk=request.user.id)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            Review.objects.create(
-                critic=request.user,
-                headline=data['headline'],
-                text=data['text'],
-                recommend=data['recommend']
-                # movie=Movie.objects.get(pk=movieId)
+            review = Review.objects.create(
+                critic = critic,
+                headline = data['headline'],
+                text = data['text'],
+                recommend = data['recommend'],
+                movie = movie
             )
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('review', args=(review.id,)))
+    form = ReviewForm()
     return render(request,html,{'form': form})
 
 
-def deletereview(request):
-    query = Movie.objects.get(pk=id)
-    query.delete()
-    return HttpResponse("Deleted!")
+def delete_review(request, reviewId):
+    review = Review.objects.get(pk=reviewId)
+    review.delete()
+    return HttpResponse('homepage')
 
-def edit_review_view(request, id): 
-    instance = get_object_or_404(edit_reviewModel, id=id)
-    form = edit_reviewForm(request.POST or None, instance=instance)
-    if form.is_valid():
+def review_edit(request, reviewId):
+    html = 'generic_form.html'
+    instance = Review.objects.get(pk=reviewId)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=instance)
         form.save()
-        return redirect('next_view')
-    return render(request, 'edit_review_template.html', {'form': form}) 
+        return HttpResponseRedirect(reverse('review', args=(instance.id,)))
+    form = ReviewForm(instance=instance)
+    return render(request, html, {'form': form})
+
+def review_view(request, reviewId):
+    html = 'review_detail.html'
+    review = Review.objects.get(pk=reviewId)
+    return render(request, html,{'review': review})
 
 
 
