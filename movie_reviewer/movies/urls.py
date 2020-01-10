@@ -1,5 +1,6 @@
 from django.urls import path
-from movie_reviewer.movies.views import *
+from movie_reviewer.movies.views import (
+    RecentMoviesView, MovieView, SearchMovieView, SearchResults)
 
 urlpatterns = [
     path('', RecentMoviesView.as_view(), name='homepage'),

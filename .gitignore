@@ -125,3 +125,4 @@ dmypy.json
 .venv/*
 .env
 migrations
+.sqlite3

@@ -15,5 +15,3 @@ class Movie(models.Model):
 
     def __str__(self):
         return f"{self.title} imdbID: {self.imdb_id} (id: {self.id})"
-    
-

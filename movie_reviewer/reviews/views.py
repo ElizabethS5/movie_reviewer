@@ -6,8 +6,6 @@
 # responses
 
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from django.contrib.auth import login
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from movie_reviewer.reviews.forms import ReviewForm
 from movie_reviewer.reviews.models import Review
@@ -21,24 +19,27 @@ def reviews_of_movie_view(request, movieId):
     current_movie = Movie.objects.get(id=movieId)
     movie_reviews = Review.objects.filter(movie=current_movie)
 
-    professional_critics = Critics.objects.filter(professional=True)
-    user_critics = Critics.objects.filter(professional=False)
+    professional_critics = Critic.objects.filter(professional=True)
+    user_critics = Critic.objects.filter(professional=False)
 
     professional_reviews = Review.objects.none()
     user_reviews = Review.objects.none()
 
     for critic in professional_critics:
-        professional_reviews = professional_reviews | movie_reviews.filter(critic=critic).first()
+        professional_reviews = professional_reviews | movie_reviews.filter(
+            critic=critic).first()
 
     for critic in user_critics:
-        user_reviews = user_reviews | movie_reviews.filter(critic=critic).first()
-    
-
+        user_reviews = user_reviews | movie_reviews.filter(
+            critic=critic).first()
 
     # review = Review.objects.all()
     # critic_reviews = Review.objects.filter()
     # user_reviews = Review.objects.filter()
-    return render(request, review_html, {'professional_reviews': professional_reviews, 'user_reviews':user_reviews})
+    return render(request, review_html, {
+        'professional_reviews': professional_reviews,
+        'user_reviews': user_reviews
+    })
 
 
 @login_required
@@ -52,21 +53,22 @@ def review_add_view(request, movieId):
         if form.is_valid():
             data = form.cleaned_data
             review = Review.objects.create(
-                critic = critic,
-                headline = data['headline'],
-                text = data['text'],
-                recommend = data['recommend'],
-                movie = movie
+                critic=critic,
+                headline=data['headline'],
+                text=data['text'],
+                recommend=data['recommend'],
+                movie=movie
             )
             return HttpResponseRedirect(reverse('review', args=(review.id,)))
     form = ReviewForm()
-    return render(request,html,{'form': form})
+    return render(request, html, {'form': form})
 
 
 def delete_review(request, reviewId):
     review = Review.objects.get(pk=reviewId)
     review.delete()
-    return HttpResponse('homepage')
+    return HttpResponseRedirect(reverse('homepage'))
+
 
 def review_edit(request, reviewId):
     html = 'generic_form.html'
@@ -78,12 +80,8 @@ def review_edit(request, reviewId):
     form = ReviewForm(instance=instance)
     return render(request, html, {'form': form})
 
+
 def review_view(request, reviewId):
     html = 'review_detail.html'
     review = Review.objects.get(pk=reviewId)
-    return render(request, html,{'review': review})
-
-
-
-
-
+    return render(request, html, {'review': review})

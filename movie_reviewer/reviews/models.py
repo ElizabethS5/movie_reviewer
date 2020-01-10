@@ -17,8 +17,5 @@ class Review(models.Model):
     post_date = models.DateTimeField(default=timezone.now)
     recommend = models.BooleanField(default=True)
 
-
     def _str_(self):
         return self.headline
-
-
