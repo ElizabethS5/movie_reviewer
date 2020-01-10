@@ -5,11 +5,11 @@
 # All network requests have sufficient exception handling for 4xx and 5xx
 # responses
 
-  # , HttpResponseRedirect, reverse
+# , HttpResponseRedirect, reverse
 # from django.contrib.auth import login
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
-import re
+# import re
 from django.shortcuts import render
 from django.views import View
 from movie_reviewer.movies.forms import SearchForm
@@ -19,13 +19,15 @@ import tmdbsimple as tmdb
 
 tmdb.API_KEY = '20198fe77843ae9de92a02d9ce1e74c0'
 
+
 class RecentMoviesView(View):
     template_name = 'index.html'
 
     def get(self, request):
         res = tmdb.Movies().popular(page=1)
-        movies= res['results'][:10]
+        movies = res['results'][:10]
         return render(request, self.template_name, {'data': movies})
+
 
 class SearchMovieView(View):
     template_name = 'search_form.html'
@@ -34,9 +36,10 @@ class SearchMovieView(View):
         form = SearchForm()
         return render(request, self.template_name, {'form': form})
 
+
 class SearchResults(View):
     template_name = 'search.html'
-    
+
     def get(self, request, *args, **kwargs):
         form = SearchForm(request.GET)
         if form.is_valid():
@@ -44,6 +47,7 @@ class SearchResults(View):
             search_dict = tmdb.Search().movie(query=data['search_input'])
             search_results = search_dict['results']
         return render(request, self.template_name, {'search': search_results})
+
 
 class MovieView(View):
     template_name = 'movie_detail.html'
@@ -64,7 +68,11 @@ class MovieView(View):
         movie_credits = get_credits['cast'][:5]
         # reviews = Review.objects.filter(movie=db_movie)
         # pro reviews = boolean true
-        return render(request, self.template_name, {'movie': movie_info, 'credits': movie_credits})
+
+        return render(request, self.template_name, {
+            'movie': movie,
+            'credits': movie_credits
+        })
 
         # partial scheme
         # get reviews for movie
