@@ -1,0 +1,16 @@
+<!-- Template to  -->
+{% load static %}
+
+<head>
+    <link rel='stylesheet' type='text/css' href='{% static "css/main.css" %}'>
+</head>
+
+<a href='/'>Home Page</a>
+<a href='/logout/'>Logout</a>
+
+{% for item in review %}
+    <h1><a href = '/review/{{item.id}}/'>{{item.headline}}</a></h1>
+    <h6>{{item.critic}}{{item.post_date}}</h6>
+    <p>{{item.text}}</p>
+    <h6>{{item.recommend}}</h6>
+{% endfor %}
