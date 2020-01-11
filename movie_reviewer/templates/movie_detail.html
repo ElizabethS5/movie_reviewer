@@ -1,10 +1,20 @@
-<h1><a href="/">Movie Reviewer</a></h1>
-<button><a href="/search/">Search for a Movie</a></button>
+<nav>
+    <button><a href="/">Movie Reviewer</a></button>
+    <button><a href="/search/">Search for a Movie</a></button>
+    <button><a href="/register/">Create User</a></button>
+    {% if request.user.is_authenticated %}
+    <button><a href="/log_out">Logout</a></button>
+{% else %}
+    <button><a href="/login">Login</a></button>
+{% endif %}
+</nav>
+<br>
+<button><a href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a></button>
+<button><a href="/moviereviews/{{movie.tmdb_id}}">Reviews For {{movie.title}}</a></button>
 
 <h2>{{movie.title}}</h2>
 <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="">
 <p>{{movie.overview}}</p>
-<p>{{movie.cast}}</p>
 
 <ul>  
     {% for credit in credits%}

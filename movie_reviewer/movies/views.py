@@ -13,8 +13,8 @@
 from django.shortcuts import render
 from django.views import View
 from movie_reviewer.movies.forms import SearchForm
-# from movie_reviewer.movies.models import Movie
-import tmdbsimple as tmdb
+from movie_reviewer.movies.models import Movie
+import tmdbsimple as tmdb 
 
 
 tmdb.API_KEY = '20198fe77843ae9de92a02d9ce1e74c0'
@@ -54,10 +54,20 @@ class MovieView(View):
 
     def get(self, request, id):
         get_movie = tmdb.Movies(id)
-        movie = get_movie.info()
+        movie_info = get_movie.info()
+        db_movie = Movie.objects.filter(tmdb_id=movie_info['id']).first()
+        if not db_movie:
+            db_movie = Movie.objects.create(
+                    title= movie_info['title'],
+                    tmdb_id= movie_info['id'],
+                    overview= movie_info['overview'],
+                    poster_path= movie_info['poster_path'],
+                    release_date = movie_info['release_date']
+                )
         get_credits = get_movie.credits()
         movie_credits = get_credits['cast'][:5]
+
         return render(request, self.template_name, {
-            'movie': movie,
+            'movie': db_movie,
             'credits': movie_credits
         })
