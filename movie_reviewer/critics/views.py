@@ -24,7 +24,7 @@ class CreateCritic(CreateView):
 
     def form_valid(self, form):
         data = form.cleaned_data
-        critic = Critic.objects.create(
+        critic = Critic.objects.create_user(
             username=data['username'],
             email=data['email'],
             password=data['password'],
