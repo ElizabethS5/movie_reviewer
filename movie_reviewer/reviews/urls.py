@@ -8,9 +8,9 @@ from movie_reviewer.reviews.views import (
 )
 
 urlpatterns = [
-    path('review/<int:id>', review_view, name='review'),
-    path('reviewadd/<int:id>', review_add_view, name='reviewadd'),
+    path('review/<int:reviewId>', review_view, name='review'),
+    path('reviewadd/', review_add_view, name='reviewadd'),
     path('moviereviews/<int:id>', reviews_of_movie_view, name='moviereviews'),
     path('deletereview/<int:id>', delete_review, name='deletereview'),
-    path('reviewedit/<int:id>', review_edit, name='reviewedit')
+    path('reviewedit/<int:reviewId>', review_edit, name='reviewedit')
 ]

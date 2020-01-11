@@ -44,6 +44,10 @@ def review_add_view(request, id):
     html = 'generic_form.html'
     movie = Movie.objects.get(tmdb_id=id)
     critic = Critic.objects.get(pk=request.user.id)
+    previous_review_list = Review.objects.filter(critic=critic, movie=movie)
+    if previous_review_list:
+        review = previous_review_list[0]
+        return review_edit(request, review.id)
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
