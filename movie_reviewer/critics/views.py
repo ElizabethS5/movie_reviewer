@@ -15,6 +15,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from movie_reviewer.critics.forms import NewCriticForm
 from movie_reviewer.critics.models import Critic
+from movie_reviewer.reviews.models import Review
 
 
 class CreateCritic(CreateView):
@@ -39,7 +40,9 @@ class CriticView(DetailView):
     template_name = 'critic_detail.html'
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context['reviews'] = Review.objects.filter(critic=self.get_object())
+        return context
 
 
 class CriticListView(ListView):
