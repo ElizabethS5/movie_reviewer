@@ -1,12 +1,21 @@
-<h1><a href="/">Movie Reviewer</a></h1>
-<button><a href="/search/">Search for a Movie</a></button>
+<nav>
+  <button><a href="/">Movie Reviewer</a></button>
+  <button><a href="/search/">Search for a Movie</a></button>
+  <button><a href="/register/">Create User</a></button>
+  {% if request.user.is_authenticated %}
+  <button><a href="/log_out">Logout</a></button>
+  {% else %}
+  <button><a href="/login">Login</a></button>
+  {% endif %}
+</nav>
+
+<h2>Hello {{user.username}}</h2>
 
 <h2>
-{% for movie in data %}
+  {% for movie in data %}
 
- <h1><a href="/movie/{{movie.id}}">{{movie.title}}</a></h1>
- <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset="">
-{% endfor %}
-<!-- numerical voting system based on score instead of boolean recommendation -->
-
+  <h1><a href="/movie/{{movie.id}}">{{movie.title}}</a></h1>
+  <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset=""/>
+  
+  {% endfor %}
 </h2>

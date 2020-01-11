@@ -13,29 +13,26 @@ from movie_reviewer.critics.models import Critic
 from movie_reviewer.movies.models import Movie
 
 
-def reviews_of_movie_view(request, movieId):
+def reviews_of_movie_view(request, id):
     review_html = 'reviews.html'
 
-    current_movie = Movie.objects.get(id=movieId)
+    current_movie = Movie.objects.get(tmdb_id=id)
     movie_reviews = Review.objects.filter(movie=current_movie)
 
     professional_critics = Critic.objects.filter(professional=True)
     user_critics = Critic.objects.filter(professional=False)
 
-    professional_reviews = Review.objects.none()
-    user_reviews = Review.objects.none()
+    professional_reviews = movie_reviews.filter(critic__in=professional_critics, movie=current_movie)
+    user_reviews = Review.objects.filter(critic__in=user_critics, movie=current_movie)
 
-    for critic in professional_critics:
-        professional_reviews = professional_reviews | movie_reviews.filter(
-            critic=critic).first()
+    # for critic in professional_critics:
+    #     professional_reviews = professional_reviews | movie_reviews.filter(
+    #         critic=critic).first()
 
-    for critic in user_critics:
-        user_reviews = user_reviews | movie_reviews.filter(
-            critic=critic).first()
+    # for critic in user_critics:
+    #     user_reviews = user_reviews | movie_reviews.filter(
+    #         critic=critic).first()
 
-    # review = Review.objects.all()
-    # critic_reviews = Review.objects.filter()
-    # user_reviews = Review.objects.filter()
     return render(request, review_html, {
         'professional_reviews': professional_reviews,
         'user_reviews': user_reviews
@@ -43,9 +40,9 @@ def reviews_of_movie_view(request, movieId):
 
 
 @login_required
-def review_add_view(request, movieId):
+def review_add_view(request, id):
     html = 'generic_form.html'
-    movie = Movie.objects.get(id=movieId)
+    movie = Movie.objects.get(tmdb_id=id)
     critic = Critic.objects.get(pk=request.user.id)
 
     if request.method == 'POST':

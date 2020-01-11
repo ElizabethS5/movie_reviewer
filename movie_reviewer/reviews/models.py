@@ -12,10 +12,10 @@ from django.utils import timezone
 class Review(models.Model):
     critic = models.ForeignKey(Critic, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    headline = models.CharField(max_length=100)
-    text = models.TextField(max_length=1000)
+    headline = models.CharField(max_length=100, null=True, blank=True)
+    text = models.TextField(max_length=1000, null=True, blank=True)
     post_date = models.DateTimeField(default=timezone.now)
     recommend = models.BooleanField(default=True)
 
-    def _str_(self):
-        return self.headline
+    def __str__(self):
+        return f'Review by: {self.critic} movie: {self.movie}'

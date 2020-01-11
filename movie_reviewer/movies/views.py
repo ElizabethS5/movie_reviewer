@@ -55,25 +55,19 @@ class MovieView(View):
     def get(self, request, id):
         get_movie = tmdb.Movies(id)
         movie_info = get_movie.info()
-        db_movie = Movie.objects.filter(imdb_id=movie_info['imdb_id']).first()
+        db_movie = Movie.objects.filter(tmdb_id=movie_info['id']).first()
         if not db_movie:
             db_movie = Movie.objects.create(
                     title= movie_info['title'],
-                    imdb_id= movie_info['imdb_id'],
+                    tmdb_id= movie_info['id'],
                     overview= movie_info['overview'],
                     poster_path= movie_info['poster_path'],
                     release_date = movie_info['release_date']
                 )
         get_credits = get_movie.credits()
         movie_credits = get_credits['cast'][:5]
-        # reviews = Review.objects.filter(movie=db_movie)
-        # pro reviews = boolean true
 
         return render(request, self.template_name, {
-            'movie': movie,
+            'movie': db_movie,
             'credits': movie_credits
         })
-
-        # partial scheme
-        # get reviews for movie
-        # iterate to separate/individual variable lists
