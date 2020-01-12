@@ -22,8 +22,10 @@ def reviews_of_movie_view(request, id):
     professional_critics = Critic.objects.filter(professional=True)
     user_critics = Critic.objects.filter(professional=False)
 
-    professional_reviews = movie_reviews.filter(critic__in=professional_critics, movie=current_movie)
-    user_reviews = Review.objects.filter(critic__in=user_critics, movie=current_movie)
+    professional_reviews = movie_reviews.filter(
+        critic__in=professional_critics, movie=current_movie)
+    user_reviews = Review.objects.filter(
+        critic__in=user_critics, movie=current_movie)
 
     # for critic in professional_critics:
     #     professional_reviews = professional_reviews | movie_reviews.filter(
@@ -35,14 +37,15 @@ def reviews_of_movie_view(request, id):
 
     return render(request, review_html, {
         'professional_reviews': professional_reviews,
-        'user_reviews': user_reviews
+        'user_reviews': user_reviews,
+        'movie': current_movie
     })
 
 
 @login_required
-def review_add_view(request, id):
+def review_add_view(request, tmdb_id):
     html = 'generic_form.html'
-    movie = Movie.objects.get(tmdb_id=id)
+    movie = Movie.objects.get(tmdb_id=tmdb_id)
     critic = Critic.objects.get(pk=request.user.id)
     previous_review_list = Review.objects.filter(critic=critic, movie=movie)
     if previous_review_list:
@@ -85,4 +88,5 @@ def review_edit(request, reviewId):
 def review_view(request, reviewId):
     html = 'review_detail.html'
     review = Review.objects.get(pk=reviewId)
-    return render(request, html, {'review': review})
+    user_id = request.user.id
+    return render(request, html, {'review': review, 'user_id': user_id})

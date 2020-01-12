@@ -9,13 +9,19 @@
   {% endif %}
 </nav>
 
-<h2>Hello {{user.username}}</h2>
+{% if critic %}
+<h2>Hello, {{critic.displayname}}</h2>
+{% endif %}
 
 <h2>
   {% for movie in data %}
 
   <h1><a href="/movie/{{movie.id}}">{{movie.title}}</a></h1>
-  <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset=""/>
-  
+  <img
+    src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}"
+    alt=""
+    srcset=""
+  />
+
   {% endfor %}
 </h2>

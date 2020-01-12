@@ -1,25 +1,20 @@
+<h1>Reviews for {{movie.title}}</h1>
 {% for item in professional_reviews %}
-    <h1><a href="/review/{{item.id}}/">{{item.headline}}</a></h1>
-    <h2>{{item.critic}}{{item.post_date}}</h2>
-    <p>{{item.text}}</p>
+<h1><a href="/review/{{item.id}}/">{{item.headline}}</a></h1>
+<h2>{{item.critic}}{{item.post_date}}</h2>
+<p>{{item.text}}</p>
 
-    {% if item.recommend %}
-        <h4>Recommend</h4>
-    {% else %}
-        <h4>Don't Recommend</h4>
-    {% endif %}
+{% if item.recommend %}
+<h4>Recommend</h4>
+{% else %}
+<h4>Don't Recommend</h4>
+{% endif %} {% endfor %} {% for item in user_reviews %}
+<h1><a href="/review/{{item.id}}/">{{item.headline}}</a></h1>
+<h2>{{item.critic}} {{item.post_date}}</h2>
+<p>{{item.text}}</p>
 
-{% endfor %} 
-
-{% for item in user_reviews %}
-    <h1><a href="/review/{{item.id}}/">{{item.headline}}</a></h1>
-    <h2>{{item.critic}} {{item.post_date}}</h2>
-    <p>{{item.text}}</p>
-    
-    {% if item.recommend %}
-        <h4>Recommend</h4>
-    {% else %}
-        <h4>Don't Recommend</h4>
-    {% endif %}
-
-{% endfor %}
+{% if item.recommend %}
+<h4>Recommend</h4>
+{% else %}
+<h4>Don't Recommend</h4>
+{% endif %} {% endfor %}
