@@ -3,7 +3,9 @@
 {% block body %}
 <br />
 <button><a href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a></button>
-<button><a href="/moviereviews/{{movie.tmdb_id}}">Reviews For {{movie.title}}</a></button>
+<button>
+  <a href="/moviereviews/{{movie.tmdb_id}}">Reviews For {{movie.title}}</a>
+</button>
 
 <h2>{{movie.title}}</h2>
 <div class="d-inline-flex container-fluid">

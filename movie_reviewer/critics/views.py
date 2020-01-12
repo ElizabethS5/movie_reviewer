@@ -19,7 +19,7 @@ from movie_reviewer.reviews.models import Review
 
 
 class CreateCritic(CreateView):
-    template_name = 'generic_form.html'
+    template_name = 'register_form.html'
     form_class = NewCriticForm
 
     def form_valid(self, form):

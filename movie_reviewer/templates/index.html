@@ -1,9 +1,10 @@
 {% extends 'site.html' %}
 {% block title %}Movie Homepage{% endblock %}
+{% block body%}
+{% if critic %}
+<h2>Hello, {{critic.displayname}}</h2>
+{% endif %}
 
-{% block body %}
-
-<h2>Hello {{user.username}}</h2>
 <div class='container-fluid'>
   <ul class="d-flex">
 

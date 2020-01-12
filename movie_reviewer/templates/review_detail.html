@@ -1,1 +1,27 @@
-<h1>Review detail</h1>
+<nav>
+  <button><a href="/">Movie Reviewer</a></button>
+  <button><a href="/search/">Search for a Movie</a></button>
+  <button><a href="/register/">Create User</a></button>
+  {% if request.user.is_authenticated %}
+  <button><a href="/log_out">Logout</a></button>
+  {% else %}
+  <button><a href="/login">Login</a></button>
+  {% endif %}
+</nav>
+<h1>
+  <a href="/movie/{{review.movie.tmdb_id}}">
+    {{review.movie.title}}
+  </a>
+</h1>
+<h2>
+  Review by
+  <a href="/critics/{{review.critic.id}}">
+    {{review.critic}}
+  </a>
+</h2>
+<h3>{{review.headline}}</h3>
+<p>{{review.text}}</p>
+{% if review.critic.id == user_id %}
+<a href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
+<a href="/deletereview/{{review.id}}">DELETE REVIEW</a>
+{% endif %}
