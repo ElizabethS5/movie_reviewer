@@ -25,7 +25,7 @@ class RecentMoviesView(View):
 
     def get(self, request):
         res = tmdb.Movies().popular(page=1)
-        movies = res['results'][:10]
+        movies = res['results'][:5]
         return render(request, self.template_name, {'data': movies})
 
 

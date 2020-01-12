@@ -1,21 +1,18 @@
-<nav>
-  <button><a href="/">Movie Reviewer</a></button>
-  <button><a href="/search/">Search for a Movie</a></button>
-  <button><a href="/register/">Create User</a></button>
-  {% if request.user.is_authenticated %}
-  <button><a href="/log_out">Logout</a></button>
-  {% else %}
-  <button><a href="/login">Login</a></button>
-  {% endif %}
-</nav>
+{% extends 'site.html' %}
+{% block title %}Movie Homepage{% endblock %}
+
+{% block body %}
 
 <h2>Hello {{user.username}}</h2>
+<div class='container-fluid'>
+  <ul class="d-flex">
 
-<h2>
-  {% for movie in data %}
-
-  <h1><a href="/movie/{{movie.id}}">{{movie.title}}</a></h1>
-  <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset=""/>
-  
-  {% endfor %}
-</h2>
+    {% for movie in data %}
+      <li class='d-block'>
+        <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset=""/>
+        <h2><a href="/movie/{{movie.id}}">{{movie.title}}</a></h2>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

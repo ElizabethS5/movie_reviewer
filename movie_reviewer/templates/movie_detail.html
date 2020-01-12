@@ -1,24 +1,31 @@
-<nav>
-    <button><a href="/">Movie Reviewer</a></button>
-    <button><a href="/search/">Search for a Movie</a></button>
-    <button><a href="/register/">Create User</a></button>
-    {% if request.user.is_authenticated %}
-    <button><a href="/log_out">Logout</a></button>
-{% else %}
-    <button><a href="/login">Login</a></button>
-{% endif %}
-</nav>
-<br>
+{% extends 'site.html' %} 
+{% block title %}{{movie.title}}{% endblock %} 
+{% block body %}
+<br />
 <button><a href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a></button>
 <button><a href="/moviereviews/{{movie.tmdb_id}}">Reviews For {{movie.title}}</a></button>
 
 <h2>{{movie.title}}</h2>
-<img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="">
-<p>{{movie.overview}}</p>
+<div class="d-inline-flex container-fluid">
+  <div class="row">
+    <div class="float-left col">
+      <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" class="img-fluid" alt=""/>
+    </div>
 
-<ul>  
-    {% for credit in credits%}
-        <li>{{credit.character}} - {{credit.name}}</li>
-        <img src="https://image.tmdb.org/t/p/w92/{{credit.profile_path}}" alt="">
-    {% endfor%}
-</ul>
+    <div class="d-flex justify-content-start col-10">
+      <ul class="d-flex">
+        {% for credit in credits%}
+        <li class="d-block">
+          {{credit.character}} - {{credit.name}}
+          <img src="https://image.tmdb.org/t/p/w92/{{credit.profile_path}}" class="img-fluid" alt="" />
+        </li>
+        {% endfor%}
+      </ul>
+    </div>
+    <div>
+      <p>{{movie.overview}}</p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
