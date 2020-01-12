@@ -7,23 +7,26 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <title>{% block title %}{% endblock %}</title>
 </head>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="d-block navbar navbar-expand-lg navbar-light bg-dark">
     <div>
         <ul class='navbar-nav'>
         <li></li>
-        <button><a class='navbar-brand' href="/">Movie Reviewer</a></button>
+        <button class="btn btn-warning m-1"><a class='navbar-brand text-dark' href="/">Movie Reviewer</a></button>
 
-        <button><a href="/search/">Search for a Movie</a></button>
+        <button class="btn btn-warning m-1"><a class="text-dark" href="/search/">Search for a Movie</a></button>
 
-        <button><a href="/register/">Create User</a></button>
+        <button class="btn btn-warning m-1"><a class="text-dark" href="/register/">Create User</a></button>
 
         {% if request.user.is_authenticated %}
-            <button><a href="/log_out">Logout</a></button>
+            <button class="btn btn-warning m-1"><a class="text-dark" href="/log_out">Logout</a></button>
         {% else %}
-            <button><a href="/login">Login</a></button>
+            <button class="btn btn-warning m-1"><a class="text-dark" href="/login">Login</a></button>
         {% endif %}
     </ul>
     </div>
     </nav>
-    {% block body %}{% endblock %}
+    <br>
+    <div class="container ml-0">
+        {% block body %}{% endblock %}
+    </div>
   </body>

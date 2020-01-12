@@ -1,21 +1,15 @@
-<nav>
-  <button><a href="/">Movie Reviewer</a></button>
-  <button><a href="/search/">Search for a Movie</a></button>
-  <button><a href="/register/">Create User</a></button>
-  {% if request.user.is_authenticated %}
-  <button><a href="/log_out">Logout</a></button>
-  {% else %}
-  <button><a href="/login">Login</a></button>
-  {% endif %}
-</nav>
+{% extends 'site.html' %}
+{% block title %}{{review.critic}} review of {{review.movie.title}}{% endblock %}
+
+{% block body %}
 <h1>
-  <a href="/movie/{{review.movie.tmdb_id}}">
+  <a class="text-warning" href="/movie/{{review.movie.tmdb_id}}">
     {{review.movie.title}}
   </a>
 </h1>
 <h2>
   Review by
-  <a href="/critics/{{review.critic.id}}">
+  <a class="text-warning" href="/critics/{{review.critic.id}}">
     {{review.critic}}
   </a>
 </h2>
@@ -25,3 +19,4 @@
 <a href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
 <a href="/deletereview/{{review.id}}">DELETE REVIEW</a>
 {% endif %}
+{% endblock %}

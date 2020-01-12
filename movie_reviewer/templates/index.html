@@ -4,14 +4,12 @@
 {% if critic %}
 <h2>Hello, {{critic.displayname}}</h2>
 {% endif %}
-
-<div class='container-fluid'>
+<div class="d-flex justify-content-start">
   <ul class="d-flex">
-
     {% for movie in data %}
-      <li class='d-block'>
+      <li class='d-block float-left flex-wrap m-2'>
         <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" srcset=""/>
-        <h2><a href="/movie/{{movie.id}}">{{movie.title}}</a></h2>
+        <h4><a class="text-dark" href="/movie/{{movie.id}}">{{movie.title}}</a></h4>
       </li>
     {% endfor %}
   </ul>

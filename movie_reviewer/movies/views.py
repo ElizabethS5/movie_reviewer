@@ -45,7 +45,7 @@ class SearchMovieView(View):
 
 
 class SearchResults(View):
-    template_name = 'search.html'
+    template_name = 'search_results.html'
 
     def get(self, request, *args, **kwargs):
         form = SearchForm(request.GET)
@@ -53,7 +53,9 @@ class SearchResults(View):
             data = form.cleaned_data
             search_dict = tmdb.Search().movie(query=data['search_input'])
             search_results = search_dict['results']
-        return render(request, self.template_name, {'search': search_results})
+        return render(request, self.template_name, {
+            'search': search_results,
+            'data': data})
 
 
 class MovieView(View):
