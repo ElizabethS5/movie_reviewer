@@ -5,14 +5,17 @@
 # All network requests have sufficient exception handling for 4xx and 5xx
 # responses
 
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import (
+    render,
+    HttpResponseRedirect,
+    reverse,
+)
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from movie_reviewer.authentication.forms import LoginForm
 
 
 def login_view(request):
-
     html = 'login_form.html'
     page = 'login'
     if request.method == 'POST':
