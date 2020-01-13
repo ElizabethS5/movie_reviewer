@@ -1,9 +1,17 @@
 {% extends 'site.html' %}
-{% block title %}{{movie.title}}{% endblock %} 
+{% block title %}
+{{movie.title}}
+{% endblock %} 
 {% block body %}
 <div class="mb-3">
-    <button class="btn btn-outline-warning"><a class="text-dark" href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a></button>
-    <button class="btn btn-outline-warning"><a class='text-dark' href="/moviereviews/{{movie.tmdb_id}}">Reviews For {{movie.title}}</a></button>
+  <button class="btn btn-outline-warning">
+    <a class="text-dark" href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a>
+  </button>
+  <button class="btn btn-outline-warning">
+    <a class="text-dark" href="/moviereviews/{{movie.tmdb_id}}"
+      >Reviews For {{movie.title}}</a
+    >
+  </button>
 </div>
 
 <h2>{{movie.title}} ({{movie.release_date}})</h2>
@@ -18,21 +26,53 @@
     </div>
 
     <div class="d-flex justify-content-start col-10">
+      <div>
+        {% if movie.get_cumultive_recommend_percentage %}
+          <div>
+            <h1>{{movie.get_cumultive_recommend_percentage.0}}%</h1>
+            <p>Combo Score</p>
+            <p>(out of {{movie.get_cumultive_recommend_percentage.1}})</p>
+            <hr>
+          </div>
+          {% if movie.get_professional_recommend_percentage %}
+            <div>
+              <h2>{{movie.get_professional_recommend_percentage.0}}%</h2>
+              <p>Critic Score</p>
+              <p>(out of {{movie.get_professional_recommend_percentage.1}})</p>
+              <hr>
+            </div>
+          {% else %}
+            <p>No critic reviews</p>
+            <hr>
+          {% endif %}
+          {% if movie.get_audience_recommend_percentage %}
+            <div>
+              <h2>{{movie.get_audience_recommend_percentage.0}}%</h2>
+              <p>Audience Score</p>
+              <p>(out of {{movie.get_audience_recommend_percentage.1}})</p>
+            </div>
+          {% else %}
+            <p>No audience reviews</p>
+          {% endif %}
+        {% else %}
+          <h1>No reviews</h1>
+        {% endif %}
+      </div>
       <div class="d-flex">
         <blockquote>
-            <p>{{movie.overview}}</p>
+          <p>{{movie.overview}}</p>
         </blockquote>
       </div>
     </div>
     <ul class="d-flex">
       {% for credit in credits%}
       <li class="d-block">
-          <p >{{credit.character}} - {{credit.name}}</p>
-          <img
+        <p>{{credit.character}} - {{credit.name}}</p>
+        <img
           src="https://image.tmdb.org/t/p/w92/{{credit.profile_path}}"
           class="img-fluid"
           alt=""
-          />
+        />
       </li>
       {% endfor%}
     </ul>
