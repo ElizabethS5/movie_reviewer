@@ -1,14 +1,7 @@
-<nav>
-  <button><a href="/">Movie Reviewer</a></button>
-  <button><a href="/search/">Search for a Movie</a></button>
-  <button><a href="/register/">Create User</a></button>
-  {% if request.user.is_authenticated %}
-  <button><a href="/log_out">Logout</a></button>
-  {% else %}
-  <button><a href="/login">Login</a></button>
-  {% endif %}
-</nav>
+{% extends 'site.html' %}
+{% block title %}{{object.displayname}}'s profile {% endblock %}
 
+{% block body %}
 <h1>{{ object.displayname }}</h1>
 {% if object.professional %}
 <p>I am a professional critic so my opinions matter more than yours do.  Unless of course you are also a professional critc.</p>
@@ -18,7 +11,7 @@
         <ul>
             <li>
             <h4>
-                <a href="/movie/{{review.movie.tmdb_id}}">
+                <a class="text-warning" href="/movie/{{review.movie.tmdb_id}}">
                     {{review.movie.title}}
                 </a>
             </h4>
@@ -35,3 +28,4 @@
 {% else %}
     <p>No reviews</p>
 {% endif %}
+{% endblock %}

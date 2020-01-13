@@ -1,3 +1,7 @@
+{% extends 'site.html' %}
+{% block title %}Critic List{% endblock %}
+
+{% block body %}
 <h1>Critics</h1>
 <ul>
   {% for critic in object_list %}
@@ -6,3 +10,4 @@
   <li>No critics yet.</li>
   {% endfor %}
 </ul>
+{% endblock %}

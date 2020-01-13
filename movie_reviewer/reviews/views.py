@@ -44,7 +44,7 @@ def reviews_of_movie_view(request, id):
 
 @login_required
 def review_add_view(request, tmdb_id):
-    html = 'generic_form.html'
+    html = 'review_form.html'
     movie = Movie.objects.get(tmdb_id=tmdb_id)
     critic = Critic.objects.get(pk=request.user.id)
     previous_review_list = Review.objects.filter(critic=critic, movie=movie)
@@ -75,7 +75,7 @@ def delete_review(request, reviewId):
 
 
 def review_edit(request, reviewId):
-    html = 'generic_form.html'
+    html = 'review_form.html'
     instance = Review.objects.get(pk=reviewId)
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=instance)
