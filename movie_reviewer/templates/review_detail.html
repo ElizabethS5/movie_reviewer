@@ -16,7 +16,7 @@
 <h3>{{review.headline}}</h3>
 <p>{{review.text}}</p>
 {% if review.critic.id == user_id %}
-<a href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
-<a href="/deletereview/{{review.id}}">DELETE REVIEW</a>
+<button class="btn btn-warning"><a class="text-dark" href="/reviewedit/{{review.id}}">EDIT REVIEW</a></button>
+<button class="btn btn-warning"><a class="text-dark" href="/deletereview/{{review.id}}">DELETE REVIEW</a></button>
 {% endif %}
 {% endblock %}
