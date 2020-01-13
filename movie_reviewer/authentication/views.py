@@ -36,7 +36,11 @@ def login_view(request):
     return render(request, html, {'form': form, 'page': page})
 
 
-@login_required
+@login_required()
+def userview(request):
+    return HttpResponse("<h1>Please Login</h1>")
+
+
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
