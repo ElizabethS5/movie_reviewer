@@ -9,8 +9,8 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
 from movie_reviewer.reviews.forms import ReviewForm
 from movie_reviewer.reviews.models import Review
-from movie_reviewer.critics.models import Critic
 from movie_reviewer.movies.models import Movie
+
 
 
 def reviews_of_movie_view(request, id):
@@ -90,3 +90,29 @@ def review_view(request, reviewId):
     review = Review.objects.get(pk=reviewId)
     user_id = request.user.id
     return render(request, html, {'review': review, 'user_id': user_id})
+
+
+def up_votes(request, id):
+
+    try:
+        post = Post.objects.get(id=id)
+      
+    except Post.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+    post.up_votes += 1
+    post.save()
+    return HttpResponseRedirect(reverse('homepage'))
+        
+
+def down_votes(request, id):
+
+    try:
+        post = Post.objects.get(id=id)
+    except Post.DoesNotExist():
+        return HttpResponseRedirect(reverse('homepage'))
+
+    post.down_votes += 1
+    post.save()
+    return HttpResponseRedirect(reverse('homepage'))
+
+
