@@ -15,6 +15,26 @@
 </button>
 
 <h2>{{movie.title}}</h2>
+{% if movie.get_cumultive_recommend_percentage %}
+<p>
+  {{movie.get_cumultive_recommend_percentage}}% combined recommendation score
+</p>
+{% if movie.get_professional_recommend_percentage %}
+<p>
+  {{movie.get_professional_recommend_percentage}}% professional critic
+  recommendation score
+</p>
+{% else %}
+<p>No professional critic reviews</p>
+{% endif %} {% if movie.get_audience_recommend_percentage %}
+<p>
+  {{movie.get_audience_recommend_percentage}}% audience recommendation score
+</p>
+{% else %}
+<p>No audience reviews</p>
+{% endif %} {% else %}
+<p>This movie has not been reviewed</p>
+{% endif %}
 <img src="https://image.tmdb.org/t/p/w185/{{movie.poster_path}}" alt="" />
 <p>{{movie.overview}}</p>
 

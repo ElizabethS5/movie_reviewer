@@ -28,7 +28,7 @@ class RecentMoviesView(View):
         res = tmdb.Movies().popular(page=1)
         movies = res['results'][:10]
         critic = None
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and not request.user.is_staff:
             critic = Critic.objects.get(id=request.user.id)
         return render(request, self.template_name, {
             'data': movies,
