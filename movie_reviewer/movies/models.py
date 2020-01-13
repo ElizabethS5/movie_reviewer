@@ -24,7 +24,10 @@ class Movie(models.Model):
         if not reviews:
             return None
         positive_reviews = [review for review in reviews if review.recommend]
-        return round((len(positive_reviews) / len(reviews) * 100), 1)
+        return (
+            round((len(positive_reviews) / len(reviews) * 100), 1),
+            len(reviews)
+        )
 
     @property
     def get_professional_recommend_percentage(self):
@@ -39,7 +42,10 @@ class Movie(models.Model):
             return None
         positive_pro_reviews = [
             review for review in pro_reviews if review.recommend]
-        return round((len(positive_pro_reviews) / len(pro_reviews) * 100), 1)
+        return (
+            round((len(positive_pro_reviews) / len(pro_reviews) * 100), 1),
+            len(pro_reviews)
+        )
 
     @property
     def get_audience_recommend_percentage(self):
@@ -54,6 +60,8 @@ class Movie(models.Model):
             return None
         positive_audience_reviews = [
             review for review in audience_reviews if review.recommend]
-        return round(
-            (len(positive_audience_reviews) / len(audience_reviews) * 100), 1
+        return (
+            round((len(positive_audience_reviews) /
+                   len(audience_reviews) * 100), 1),
+            len(audience_reviews)
         )
