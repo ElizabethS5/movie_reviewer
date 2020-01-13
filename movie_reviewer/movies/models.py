@@ -3,6 +3,7 @@ BooleanField, CharField, DateField, DatetimeField, FloatField, EmailField,
 TextField, URLField"""
 
 from django.db import models
+from django.apps import apps
 
 
 class Movie(models.Model):
