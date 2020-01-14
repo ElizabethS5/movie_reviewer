@@ -27,6 +27,16 @@ class RecentMoviesView(View):
     def get(self, request):
         res = tmdb.Movies().popular(page=1)
         movies = res['results'][:10]
+        # for movie in movies:
+        #     db_movie = Movie.objects.filter(tmdb_id=movie['id']).first()
+        #     if not db_movie:
+        #     db_movie = Movie.objects.create(
+        #         title=movie_info['title'],
+        #         tmdb_id=movie_info['id'],
+        #         overview=movie_info['overview'],
+        #         poster_path=movie_info['poster_path'],
+        #         release_date=movie_info['release_date']
+        #     )
         critic = None
         if request.user.is_authenticated and not request.user.is_staff:
             critic = Critic.objects.get(id=request.user.id)
