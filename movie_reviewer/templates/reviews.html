@@ -18,7 +18,22 @@
         <h4>Recommend</h4>
         {% else %}
         <h4>Don't Recommend</h4>
-        {% endif %} {% endfor %} 
+        {% endif %} 
+
+        <p>
+            {{item.vote_number}} user{% if item.vote_number != 1 %}s{% endif %} found
+            this review helpful
+          </p>
+          <button class="btn btn-warning">
+            <a class="text-dark" href="/vote/{{item.id}}">
+              {% if critic in item.voter_list %}
+              REMOVE VOTE
+              {% else %}
+              UPVOTE REVIEW
+              {% endif %}
+            </a>
+          </button>
+          {% endfor %} 
     </div>
 
     <div class="col">
