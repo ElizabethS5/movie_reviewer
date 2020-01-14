@@ -18,15 +18,15 @@
   {{review.vote_number}} user{% if review.vote_number != 1 %}s{% endif %} found
   this review helpful
 </p>
-<button class="btn btn-warning">
   <a class="text-dark" href="/vote/{{review.id}}">
+<button class="btn btn-warning">
     {% if critic in review.voter_list %}
     REMOVE VOTE
     {% else %}
     UPVOTE REVIEW
     {% endif %}
-  </a>
 </button>
+  </a>
 
 {% if review.critic.id == user_id %}
 <button class="btn btn-warning">
