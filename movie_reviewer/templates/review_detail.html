@@ -24,4 +24,5 @@
 {% if review.critic.id == user_id %}
 <a href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
 <a href="/deletereview/{{review.id}}">DELETE REVIEW</a>
+<h1>{{review.number_of_upvotes}}</h1>
 {% endif %}
