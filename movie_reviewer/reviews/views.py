@@ -92,27 +92,27 @@ def review_view(request, reviewId):
     return render(request, html, {'review': review, 'user_id': user_id})
 
 
-def up_votes(request, id):
+# def up_votes(request, id):
 
-    try:
-        post = Post.objects.get(id=id)
+#     try:
+#         post = Post.objects.get(id=id)
       
-    except Post.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
-    post.up_votes += 1
-    post.save()
-    return HttpResponseRedirect(reverse('homepage'))
+#     except Post.DoesNotExist():
+#         return HttpResponseRedirect(reverse('homepage'))
+#     post.up_votes += 1
+#     post.save()
+#     return HttpResponseRedirect(reverse('homepage'))
         
 
-def down_votes(request, id):
+# def down_votes(request, id):
 
-    try:
-        post = Post.objects.get(id=id)
-    except Post.DoesNotExist():
-        return HttpResponseRedirect(reverse('homepage'))
+#     try:
+#         post = Post.objects.get(id=id)
+#     except Post.DoesNotExist():
+#         return HttpResponseRedirect(reverse('homepage'))
 
-    post.down_votes += 1
-    post.save()
-    return HttpResponseRedirect(reverse('homepage'))
+#     post.down_votes += 1
+#     post.save()
+#     return HttpResponseRedirect(reverse('homepage'))
 
 

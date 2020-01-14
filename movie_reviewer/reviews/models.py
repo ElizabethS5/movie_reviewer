@@ -16,8 +16,9 @@ class Review(models.Model):
     text = models.TextField(max_length=1000, null=True, blank=True)
     post_date = models.DateTimeField(default=timezone.now)
     recommend = models.BooleanField(default=True)
-    up_vote = models.IntegerField(default=0)
-    down_vote = models.IntegerField(default=0)
+    # up_vote = models.ManyToManyFieldField(default=0)
+    # down_vote = models.ManyToManyField(default=0)
+
 
 
     def __str__(self):

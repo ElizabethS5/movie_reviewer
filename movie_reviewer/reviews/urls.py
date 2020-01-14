@@ -13,4 +13,6 @@ urlpatterns = [
     path('moviereviews/<int:id>', reviews_of_movie_view, name='moviereviews'),
     path('deletereview/<int:reviewId>', delete_review, name='deletereview'),
     path('reviewedit/<int:reviewId>', review_edit, name='reviewedit')
+    # path('up_votes/<int:upvotesId>/', up_votes, name='upvotes'),
+    # path('down_votes/<int:downvotesId>/', down_votes, name='downvotes')
 ]
