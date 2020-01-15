@@ -27,6 +27,10 @@ def reviews_of_movie_view(request, id):
     user_reviews = Review.objects.filter(
         critic__in=user_critics, movie=current_movie)
 
+    critic = None
+    if request.user.is_authenticated and not request.user.is_staff:
+        critic = Critic.objects.get(pk=request.user.id)
+
     # for critic in professional_critics:
     #     professional_reviews = professional_reviews | movie_reviews.filter(
     #         critic=critic).first()
@@ -38,7 +42,8 @@ def reviews_of_movie_view(request, id):
     return render(request, review_html, {
         'professional_reviews': professional_reviews,
         'user_reviews': user_reviews,
-        'movie': current_movie
+        'movie': current_movie,
+        'critic': critic
     })
 
 
@@ -89,4 +94,11 @@ def review_view(request, reviewId):
     html = 'review_detail.html'
     review = Review.objects.get(pk=reviewId)
     user_id = request.user.id
-    return render(request, html, {'review': review, 'user_id': user_id})
+    critic = None
+    if request.user.is_authenticated and not request.user.is_staff:
+        critic = Critic.objects.get(pk=user_id)
+    return render(request, html, {
+        'review': review,
+        'user_id': user_id,
+        'critic': critic
+    })
