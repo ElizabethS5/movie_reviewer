@@ -4,14 +4,11 @@
 {% endblock %} 
 {% block body %}
 <div class="mb-3">
-  <button class="btn btn-outline-warning">
-    <a class="text-white" href="/reviewadd/{{movie.tmdb_id}}">Write A Review</a>
-  </button>
-  <button class="btn btn-outline-warning">
-    <a class="text-white" href="/moviereviews/{{movie.tmdb_id}}"
-      >Reviews For {{movie.title}}</a
-    >
-  </button>
+  
+    <a class="text-white" href="/reviewadd/{{movie.tmdb_id}}"><button class="btn btn-outline-warning text-white">Write A Review</button></a>
+  
+  <a class="text-white" href="/moviereviews/{{movie.tmdb_id}}"><button class="btn btn-outline-warning text-white">Reviews For {{movie.title}}</button></a>
+      
 </div>
 
 <h2>{{movie.title}} ({{movie.release_date}})</h2>

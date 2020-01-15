@@ -2,7 +2,7 @@
 {% block title %}Login{% endblock %}
 {% block body %}
 
-  <button class="btn btn-warning"><a class='text-white' href="/register/">CREATE ACCOUNT</a></button>
+<a class='text-white' href="/register/"><button class="btn btn-warning text-white">CREATE ACCOUNT</button></a>
 
   <form class="mt-3 text-white" action="" method="post">
     {% csrf_token %} {{ form.as_p }}
