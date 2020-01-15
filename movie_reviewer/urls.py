@@ -19,15 +19,18 @@ from movie_reviewer.authentication.urls import urlpatterns as auth_urls
 from movie_reviewer.critics.urls import urlpatterns as critic_urls
 from movie_reviewer.movies.urls import urlpatterns as movie_urls
 from movie_reviewer.reviews.urls import urlpatterns as review_urls
+from movie_reviewer.votes.urls import urlpatterns as vote_urls
 
 from movie_reviewer.critics.models import Critic
 from movie_reviewer.movies.models import Movie
 from movie_reviewer.reviews.models import Review
+from movie_reviewer.votes.models import Vote
 
 # All models are registered with the admin interface
 admin.site.register(Critic)
 admin.site.register(Movie)
 admin.site.register(Review)
+admin.site.register(Vote)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,3 +43,5 @@ urlpatterns += critic_urls
 urlpatterns += movie_urls
 
 urlpatterns += review_urls
+
+urlpatterns += vote_urls
