@@ -68,12 +68,14 @@ def review_add_view(request, tmdb_id):
     return render(request, html, {'form': form})
 
 
+@login_required
 def delete_review(request, reviewId):
     review = Review.objects.get(pk=reviewId)
     review.delete()
     return HttpResponseRedirect(reverse('homepage'))
 
 
+@login_required
 def review_edit(request, reviewId):
     html = 'generic_form.html'
     instance = Review.objects.get(pk=reviewId)
