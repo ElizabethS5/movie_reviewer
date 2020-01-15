@@ -29,10 +29,7 @@
   </a>
 
 {% if review.critic.id == user_id %}
-<button class="btn btn-warning">
-  <a class="text-dark" href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
-</button>
-<button class="btn btn-warning">
-  <a class="text-dark" href="/deletereview/{{review.id}}">DELETE REVIEW</a>
-</button>
-{% endif %} {% endblock %}
+<a class="mr-1" href="/reviewedit/{{review.id}}"><button class="btn btn-outline-warning text-white">EDIT REVIEW</button></a>
+<a class="mr-1" href="/deletereview/{{review.id}}"><button class="btn btn-outline-warning text-white">DELETE REVIEW</button></a>
+{% endif %}
+{% endblock %}
