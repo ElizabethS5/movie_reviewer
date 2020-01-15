@@ -3,10 +3,10 @@
 
 {% block body %}
 
-<a class="text-white" href="/login/"><button class="btn btn-warning text-white">LOGIN</button></a>
+<a href="/login/"><button class="btn btn-warning">LOGIN</button></a>
 
 <form class="mt-3" action="" method="post">
   {% csrf_token %} {{ form.as_p }}
-  <input class="btn btn-warning text-white" type="submit" value="Submit" />
+  <input class="btn btn-warning" type="submit" value="Submit" />
 </form>
 {% endblock %}
