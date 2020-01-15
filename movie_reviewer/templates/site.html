@@ -14,16 +14,16 @@
     <nav class="d-block navbar navbar-expand-lg navbar-light bg-gray">
     <div>
         <ul class='navbar-nav'>
-        <a class='navbar-brand mt-1' href="/"><button class="btn btn-warning p-2 text-white">Movie Reviewer</button></a>
+        <a class='navbar-brand mt-1' href="/"><button class="btn btn-warning p-2 ">Movie Reviewer</button></a>
 
-        <a class="nav-link" href="/search/"><button class="btn btn-warning p-2 text-white">Search for a Movie</button></a>
+        <a class="nav-link" href="/search/"><button class="btn btn-warning p-2 ">Search for a Movie</button></a>
 
-        <a class="nav-link" href="/critics/"><button class="btn btn-warning p-2 text-white">Critics</button></a>
+        <a class="nav-link" href="/critics/"><button class="btn btn-warning p-2 ">Critics</button></a>
 
         {% if request.user.is_authenticated %}
-            <a class="nav-link" href="/log_out"><button class="btn btn-warning p-2 text-white">Logout</button></a>
+            <a class="nav-link" href="/log_out"><button class="btn btn-warning p-2 ">Logout</button></a>
         {% else %}
-            <a class="nav-link" href="/login"><button class="btn btn-warning p-2 text-white">Login</button></a>
+            <a class="nav-link" href="/login"><button class="btn btn-warning p-2 ">Login</button></a>
         {% endif %}
     </ul>
     </div>
