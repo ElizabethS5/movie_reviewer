@@ -35,4 +35,10 @@
 <button class="btn btn-warning">
   <a class="text-dark" href="/deletereview/{{review.id}}">DELETE REVIEW</a>
 </button>
-{% endif %} {% endblock %}
+{% endif %} 
+<button class="btn btn-warning">
+<a class="text-dark" href="/moviereviews/{{review.movie.tmdb_id}}">
+SEE MORE REVIEWS FOR {{review.movie.title}}
+</a>
+</button>
+{% endblock %}
