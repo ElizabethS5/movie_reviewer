@@ -5,7 +5,63 @@
 <div class="mb-4">
     <h1>Reviews for {{movie.title}}</h1>
 </div>
-
+<div class="row">
+<div class='col'>
+    <h2>
+        <strong>
+            Most Helpful Positive Review
+        </strong>
+    </h2>
+    {% if movie.most_helpful_positive_review %}
+    <h2><a class="text-warning" href="/review/{{item.id}}/">{{movie.most_helpful_positive_review.headline}}</a></h2>
+    <h3>{{movie.most_helpful_positive_review.critic}} {{movie.most_helpful_positive_review.post_date}}</h3>
+        <p>{{movie.most_helpful_positive_review.text}}</p>
+    
+        <p>
+            {{movie.most_helpful_positive_review.vote_number}} found this review helpful
+          </p>
+          <a class="text-dark" href="/vote/{{movie.most_helpful_positive_review.id}}">
+          <button class="btn btn-warning">
+              {% if critic in movie.most_helpful_positive_review.voter_list %}
+              REMOVE VOTE
+              {% else %}
+              UPVOTE REVIEW
+              {% endif %}
+            </button>
+        </a>
+        {% else %}
+        <h3>No positive reviews</h3>
+        {% endif %}
+</div>
+<div class='col'>
+    <h2>
+        <strong>
+            Most Helpful Negative Review
+        </strong>
+    </h2>
+    {% if movie.most_helpful_negative_review %}
+    <h2><a class="text-warning" href="/review/{{item.id}}/">{{movie.most_helpful_negative_review.headline}}</a></h2>
+    <h3>{{movie.most_helpful_negative_review.critic}} {{movie.most_helpful_negative_review.post_date}}</h3>
+        <p>{{movie.most_helpful_negative_review.text}}</p>
+    
+        <p>
+            {{movie.most_helpful_negative_review.vote_number}} found this review helpful
+          </p>
+          <a class="text-dark" href="/vote/{{movie.most_helpful_negative_review.id}}">
+          <button class="btn btn-warning">
+              {% if critic in movie.most_helpful_negative_review.voter_list %}
+              REMOVE VOTE
+              {% else %}
+              UPVOTE REVIEW
+              {% endif %}
+            </button>
+        </a>
+    {% else %}
+    <h3>No negative reviews</h3>
+    {% endif %}
+</div>
+</div>
+<hr>
 <div class='row'>
     <div class="col">  
         <h2><strong>Critic Reviews<strong></h2> 

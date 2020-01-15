@@ -65,3 +65,32 @@ class Movie(models.Model):
                    len(audience_reviews) * 100), 1),
             len(audience_reviews)
         )
+
+    @property
+    def most_helpful_positive_review(self):
+        Review = apps.get_model(
+            app_label='movie_reviewer', model_name='Review')
+        reviews = Review.objects.filter(movie=self)
+        if not reviews:
+            return None
+        positive_reviews = [review for review in reviews if review.recommend]
+        if not positive_reviews:
+            return None
+        most_helpful = max(
+            positive_reviews, key=lambda review: review.vote_number)
+        return most_helpful
+
+    @property
+    def most_helpful_negative_review(self):
+        Review = apps.get_model(
+            app_label='movie_reviewer', model_name='Review')
+        reviews = Review.objects.filter(movie=self)
+        if not reviews:
+            return None
+        negative_reviews = [
+            review for review in reviews if not review.recommend]
+        if not negative_reviews:
+            return None
+        most_helpful = max(
+            negative_reviews, key=lambda review: review.vote_number)
+        return most_helpful
