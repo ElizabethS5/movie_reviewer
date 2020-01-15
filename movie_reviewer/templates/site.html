@@ -14,12 +14,11 @@
     <nav class="d-block navbar navbar-expand-lg navbar-light bg-gray">
     <div>
         <ul class='navbar-nav'>
-        <li></li>
         <button class="btn btn-warning m-1"><a class='navbar-brand text-white' href="/">Movie Reviewer</a></button>
 
         <button class="btn btn-warning m-1"><a class="text-white" href="/search/">Search for a Movie</a></button>
 
-        <button class="btn btn-warning m-1"><a class="text-white" href="/register/">Create User</a></button>
+        <button class="btn btn-warning m-1"><a class="text-white" href="/critics/">Critics</a></button>
 
         {% if request.user.is_authenticated %}
             <button class="btn btn-warning m-1"><a class="text-white" href="/log_out">Logout</a></button>

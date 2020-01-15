@@ -3,11 +3,33 @@
 
 {% block body %}
 <h1>Critics</h1>
-<ul>
+<div class="container">
+  <div class="row">
+    <div class="col">
+    <h3>Professional Critics</h3>
+<ul class="">
   {% for critic in object_list %}
-  <li>{{ critic.displayname }}</li>
+  {% if critic.professional %}
+  <li class="d-block">{{ critic.displayname }}</li>
+  {% endif %}
   {% empty %}
   <li>No critics yet.</li>
   {% endfor %}
 </ul>
+</div>
+
+<div class="col">
+  <h3>User Critics</h3>
+<ul>
+    {% for critic in object_list %}
+    {% if not critic.professional %}
+    <li class='d-block'>{{ critic.displayname }}</li>
+    {% endif %}
+    {% empty %}
+    <li>No critics yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+</div>
+</div>
 {% endblock %}
