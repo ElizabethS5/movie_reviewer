@@ -1,31 +1,35 @@
 {% extends 'site.html' %}
-{% block title %}{{object.displayname}}'s profile {% endblock %}
-
+{% block title %}{{object.displayname}}'s profile
+{% endblock %}
 {% block body %}
 <h1>{{ object.displayname }}</h1>
 {% if object.professional %}
 <p>Professional critic</p>
 {% endif %}
-{% if reviews %} 
-    {% for review in reviews %} 
-        <ul>
-            <li>
-            <h4>
-                <a class="text-warning" href="/movie/{{review.movie.tmdb_id}}">
-                    {{review.movie.title}}
-                </a>
-            </h4>
-            <p>{{review.headline}}</p>
-            <p>{{review.post_date}} - {{review.text}}</p>
-            {% if review.recommend %}
-            <p>I recommend it</p>
-            {% else %}
-            <p> I do not recommend it</p>
-            {% endif %}
-            </li>
-        </ul>
-    {% endfor %}
+{% if reviews %}
+{% for review in reviews %}
+<ul>
+  <li>
+    <h4>
+      <a class="text-warning" href="/movie/{{review.movie.tmdb_id}}">
+        {{review.movie.title}}
+      </a>
+    </h4>
+    <h5>
+    <a class="text-warning" href='/review/{{review.id}}'>
+        {{review.headline}}
+    </a>
+    </h5>
+    <p>{{review.post_date}} - {{review.text}}</p>
+    {% if review.recommend %}
+    <p>I recommend it</p>
+    {% else %}
+    <p>I do not recommend it</p>
+    {% endif %}
+  </li>
+</ul>
+{% endfor %}
 {% else %}
-    <p>No reviews</p>
+<p>No reviews</p>
 {% endif %}
 {% endblock %}

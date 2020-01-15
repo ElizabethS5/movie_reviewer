@@ -1,13 +1,42 @@
 {% extends 'site.html' %}
 {% block title %}Critic List{% endblock %}
-
 {% block body %}
 <h1>Critics</h1>
-<ul>
-  {% for critic in object_list %}
-  <li>{{ critic.displayname }}</li>
-  {% empty %}
-  <li>No critics yet.</li>
-  {% endfor %}
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Professional Critics</h3>
+      <ul class="">
+        {% for critic in object_list %}
+          {% if critic.professional %}
+            <h5>
+              <a class="text-warning" href="/critics/{{critic.id}}">
+                <p class="d-block">{{ critic.displayname }}</p>
+              </a>
+            </h5>
+          {% endif %}
+        {% empty %}
+          <p>No critics yet.</p>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="col">
+      <h3>Audience Critics</h3>
+      <ul>
+        {% for critic in object_list %}
+          {% if not critic.professional %}
+            <h5>
+              <a class="text-warning" href="/critics/{{critic.id}}">
+                <p class="d-block">{{ critic.displayname }}</p>
+              </a>
+            </h5>
+          {% endif %}
+        {% empty %}
+          <li>No critics yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
 {% endblock %}
