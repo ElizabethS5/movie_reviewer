@@ -1,11 +1,10 @@
-{% extends 'site.html' %} 
-{% block title %}Movie Search{% endblock %} 
+{% extends 'site.html' %} {% block title %}Movie Search{% endblock %} 
 {% block body %}
 <h1>Search</h1>
 
 <form action="/search_results/" method="get">
-        {% csrf_token %} {{ form.as_p }}
-        <input class="btn btn-warning text-white" type="submit" value="Submit" />
-      </form>
+  {% csrf_token %} {{ form.as_p }}
+  <input class="btn btn-warning" type="submit" value="Submit" />
+</form>
 
 {% endblock %}
