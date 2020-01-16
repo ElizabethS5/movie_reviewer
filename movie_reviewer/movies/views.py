@@ -12,6 +12,7 @@
 # import re
 from django.shortcuts import render
 from django.views import View
+from django.views.generic.list import ListView
 from movie_reviewer.movies.forms import SearchForm
 from movie_reviewer.movies.models import Movie
 from movie_reviewer.critics.models import Critic
@@ -80,3 +81,12 @@ class MovieView(View):
             'movie': db_movie,
             'credits': movie_credits
         })
+
+
+class MovieListView(ListView):
+    model = Movie
+    paginate_by = 100
+    template_name = 'movie_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        return super().get_context_data(**kwargs)

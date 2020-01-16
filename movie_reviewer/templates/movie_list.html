@@ -1,0 +1,42 @@
+{% extends 'site.html' %}
+{% block title %}
+Movie List
+{% endblock %}
+{% block body %}
+<div class='row' style='width:850px'>
+    <div class='col'  style='width: 300px'><h5>Movie Title</h5></div>
+    <div style='display:flex; width:550px; justify-content: space-evenly'>
+    <div><h5>Combo Score</h5></div>
+    <div><h5>Critic Score</h5></div>
+    <div ><h5>Audience Score</h5></div>
+    </div>
+</div>
+<hr color='white'>
+{% for movie in object_list %}
+<div class='row'  style='width:850px'>
+    <div class='col'  style='width: 300px'>
+    <a class="text-warning" href='/movie/{{movie.tmdb_id}}/'>
+    {{movie.title}}
+    </a>
+    </div>
+    <div style='display:flex; width:550px; justify-content: space-evenly'>
+    {% if movie.get_cumultive_recommend_percentage %}
+        <div style='width:55px'>{{movie.get_cumultive_recommend_percentage.0}}%</div>
+    {% else %}
+        <div style='width:55px; text-align:center'>NA</div>
+    {% endif %}
+    {% if movie.get_professional_recommend_percentage %}
+        <div style='width:55px'>{{movie.get_professional_recommend_percentage.0}}%</div>
+    {% else %}
+        <div style='width:55px; text-align:center'>NA</div>
+    {% endif %}
+    {% if movie.get_audience_recommend_percentage %}
+        <div style='width:55px'>{{movie.get_audience_recommend_percentage.0}}%</div>
+    {% else %}
+        <div style='width:55px; text-align:center'>NA</div>
+    {% endif %}
+    </div>
+</div>
+<hr color='white'>
+{% endfor %}
+{% endblock %}
