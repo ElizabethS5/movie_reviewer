@@ -6,3 +6,6 @@ from movie_reviewer.reviews.models import Review
 class Vote(models.Model):
     critic = models.ForeignKey(Critic, on_delete=models.CASCADE)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.critic} upvote {self.review}'
