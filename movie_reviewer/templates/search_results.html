@@ -1,0 +1,17 @@
+{% extends 'site.html' %} 
+{% block title %}Search for {{data.search_input}}{% endblock %} 
+{% block body %}
+
+<h2 class="mb-3">Search Results for '{{data.search_input}}'</h2>
+<a href="/search/"><button class="btn btn-warning mb-3 text-white">Search Again</button></a>
+
+<ul>
+    {% for result in search %}
+    <li class="d-block">
+        <h2><a class="text-white" href="/movie/{{ result.id}}">{{ result.title }}</a></h2>
+        <img class="img-fluid" src="https://image.tmdb.org/t/p/w154/{{result.poster_path}}" alt="">
+        <p>{{result.overview}}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

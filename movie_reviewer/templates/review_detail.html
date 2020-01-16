@@ -1,0 +1,45 @@
+{% extends 'site.html' %} {% block title %}{{review.critic}} review of
+{{review.movie.title}}{% endblock %} {% block body %}
+<h1>
+  <a class="text-warning" href="/movie/{{review.movie.tmdb_id}}">
+    {{review.movie.title}}
+  </a>
+</h1>
+<h2>
+  Review by
+  <a class="text-warning" href="/critics/{{review.critic.id}}">
+    {{review.critic}}
+  </a>
+</h2>
+<h3>{{review.headline}}</h3>
+<p>{{review.text}}</p>
+
+<p>
+  {{review.vote_number}} user{% if review.vote_number != 1 %}s{% endif %} found
+  this review helpful
+</p>
+  <a class="text-dark" href="/vote/{{review.id}}">
+<button class="btn btn-warning">
+    {% if critic in review.voter_list %}
+    REMOVE VOTE
+    {% else %}
+    UPVOTE REVIEW
+    {% endif %}
+</button>
+  </a>
+
+{% if review.critic.id == user_id %}
+
+<button class="btn btn-warning">
+  <a class="text-dark" href="/reviewedit/{{review.id}}">EDIT REVIEW</a>
+</button>
+<button class="btn btn-warning">
+  <a class="text-dark" href="/deletereview/{{review.id}}">DELETE REVIEW</a>
+</button>
+{% endif %} 
+<button class="btn btn-warning">
+<a class="text-dark" href="/moviereviews/{{review.movie.tmdb_id}}">
+SEE MORE REVIEWS FOR {{review.movie.title}}
+</a>
+</button>
+{% endblock %}

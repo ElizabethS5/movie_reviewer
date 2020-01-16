@@ -1,0 +1,160 @@
+{% extends 'site.html' %} {% block title %} Reviews for {{movie.title}} 
+{% endblock %} {% block body %}
+<div class="mb-4">
+  <h1>
+    Reviews for
+    <a class="text-warning" href="/movie/{{movie.tmdb_id}}">
+      {{movie.title}}
+    </a>
+  </h1>
+</div>
+<div class="row">
+  <div class="col">
+    <h2>
+      <strong>Most Helpful Positive Review</strong>
+    </h2>
+    <hr color='white' />
+    {% if movie.most_helpful_positive_review %}
+    <h2>
+      <a
+        class="text-warning"
+        href="/review/{{movie.most_helpful_positive_review.id}}/"
+      >
+        {{movie.most_helpful_positive_review.headline}}</a
+      >
+    </h2>
+    <h4>
+      <a
+        class="text-warning"
+        href="/critics/{{movie.most_helpful_positive_review.critic.id}}/"
+        >{{movie.most_helpful_positive_review.critic}}
+      </a>
+      {{movie.most_helpful_positive_review.post_date}}
+    </h4>
+    <p>{{movie.most_helpful_positive_review.text}}</p>
+    <p>
+      {{movie.most_helpful_positive_review.vote_number}} found this review
+      helpful
+    </p>
+    <a class="text-dark" href="/vote/{{movie.most_helpful_positive_review.id}}">
+      <button class="btn btn-warning">
+        {% if critic in movie.most_helpful_positive_review.voter_list %} REMOVE
+        VOTE {% else %} UPVOTE REVIEW {% endif %}
+      </button>
+    </a>
+    {% else %}
+    <h3>No positive reviews</h3>
+    {% endif %}
+  </div>
+  <div class="col">
+    <h2>
+      <strong>
+        Most Helpful Negative Review
+      </strong>
+    </h2>
+    <hr color='white' />
+    {% if movie.most_helpful_negative_review %}
+    <h2>
+      <a
+        class="text-warning"
+        href="/review/{{movie.most_helpful_negative_review.id}}/"
+        >{{movie.most_helpful_negative_review.headline}}</a
+      >
+    </h2>
+    <h4>
+      <a
+        class="text-warning"
+        href="/critics/{{movie.most_helpful_negative_review.critic.id}}/"
+      >
+        {{movie.most_helpful_negative_review.critic}}
+      </a>
+      {{movie.most_helpful_negative_review.post_date}}
+    </h4>
+    <p>{{movie.most_helpful_negative_review.text}}</p>
+
+    <p>
+      {{movie.most_helpful_negative_review.vote_number}} found this review
+      helpful
+    </p>
+    <a class="text-dark" href="/vote/{{movie.most_helpful_negative_review.id}}">
+      <button class="btn btn-warning">
+        {% if critic in movie.most_helpful_negative_review.voter_list %} REMOVE
+        VOTE {% else %} UPVOTE REVIEW {% endif %}
+      </button>
+    </a>
+    {% else %}
+    <h3>No negative reviews</h3>
+    {% endif %}
+  </div>
+</div>
+<hr color='white' />
+<hr color='white' />
+<div class="row">
+  <div class="col">
+    <h2><strong>Critic Reviews</strong></h2>
+    <hr color='white' />
+    {% for item in professional_reviews %}
+    <h2>
+      <a class="text-warning" href="/review/{{item.id}}/">{{item.headline}}</a>
+    </h2>
+    <h4>
+      <a class="text-warning" href="/critics/{{item.critic.id}}/">
+        {{item.critic}}
+      </a>
+      {{item.post_date}}
+    </h4>
+    <p>{{item.text}}</p>
+
+    {% if item.recommend %}
+    <h4>Recommend</h4>
+    {% else %}
+    <h4>Don't Recommend</h4>
+    {% endif %}
+
+    <p>
+      {{item.vote_number}} found this review helpful
+    </p>
+    <a class="text-dark" href="/vote/{{item.id}}">
+      <button class="btn btn-warning">
+        {% if critic in item.voter_list %} REMOVE VOTE {% else %} UPVOTE REVIEW
+        {% endif %}
+      </button>
+    </a>
+    <hr color='white' />
+    {% endfor %}
+  </div>
+
+  <div class="col">
+    <h2><strong>Audience Reviews</strong></h2>
+    <hr color='white' />
+    {% for item in user_reviews %}
+    <h2>
+      <a class="text-warning" href="/review/{{item.id}}/">{{item.headline}}</a>
+    </h2>
+    <h4>
+      <a class="text-warning" href="/critics/{{item.critic.id}}/">
+        {{item.critic}}
+      </a>
+      {{item.post_date}}
+    </h4>
+    <p>{{item.text}}</p>
+
+    {% if item.recommend %}
+    <h4>Recommend</h4>
+    {% else %}
+    <h4>Don't Recommend</h4>
+    {% endif %}
+    <p>
+      {{item.vote_number}} found this review helpful
+    </p>
+    <a class="text-dark" href="/vote/{{item.id}}">
+      <button class="btn btn-warning">
+        {% if critic in item.voter_list %} REMOVE VOTE {% else %} UPVOTE REVIEW
+        {% endif %}
+      </button>
+    </a>
+    <hr color='white' />
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

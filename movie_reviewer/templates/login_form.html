@@ -1,0 +1,10 @@
+{% extends 'site.html' %} {% block title %}Login{% endblock %} {% block body %}
+
+<a href="/register/"><button class="btn btn-warning">CREATE ACCOUNT</button></a>
+
+<form class="mt-3 text-white" action="" method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <input class="btn btn-warning" type="submit" value="Submit" />
+</form>
+
+{% endblock %}
