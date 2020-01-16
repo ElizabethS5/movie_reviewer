@@ -12,15 +12,14 @@
 # import re
 from django.shortcuts import render
 from django.views import View
+from movie_reviewer import settings
 from django.views.generic.list import ListView
 from movie_reviewer.movies.forms import SearchForm
 from movie_reviewer.movies.models import Movie
 from movie_reviewer.critics.models import Critic
 import tmdbsimple as tmdb
 
-
-tmdb.API_KEY = '20198fe77843ae9de92a02d9ce1e74c0'
-
+tmdb.API_KEY = settings.API_KEY
 
 class RecentMoviesView(View):
     template_name = 'index.html'
